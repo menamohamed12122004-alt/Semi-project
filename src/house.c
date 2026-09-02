@@ -47,7 +47,42 @@ const Room_t *houseRooms(void)
 {
     return house;
 }
+void houseInit(void)
+{
+    char names[ROOM_COUNT][NAME_LEN] = {
+        "Living",
+        "Kitchen",
+        "Bedroom",
+        "Bathroom",
+        "Hall",
+        "Garage"
+    };
 
+    uint16_t adcValues[ROOM_COUNT] = {
+        51, 64, 45, 58, 49, 96
+    };
+
+    for (uint8_t i = 0; i < ROOM_COUNT; i++)
+    {
+        for (uint8_t j = 0; j < NAME_LEN; j++)
+        {
+            house[i].name[j] = names[i][j];
+
+            if (names[i][j] == '\0')
+            {
+                break;
+            }
+        }
+
+        house[i].adc = adcValues[i];
+        house[i].status = 0;
+
+        SET_BIT(house[i].status, BIT_AUTO);
+    }
+
+    SET_BIT(house[0].status, BIT_OCCUPIED);
+    SET_BIT(house[4].status, BIT_OCCUPIED);
+}
 
 /* ==========================================================================
  *  [ 1 / 6 ]   YOUR WORK HERE  —  houseInit()                        FR-03
