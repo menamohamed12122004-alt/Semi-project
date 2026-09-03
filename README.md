@@ -440,8 +440,10 @@ your screen — that column is how it will be marked.
 > *before* R1, and why?
 >
 > Try it, look at the screen, then put it back.
+What happens: The Garage lamp turns OFF (or fails to turn on even when a room is occupied).
 
-*(write your answer here — a few sentences, in your own words)*
+Why: Rule 3 (R3) depends on the lamp states updated by Rule 1 (R1). If R3 runs first, it checks the house before R1 has a chance to turn on the lamp for an occupied room. R3 assumes all other lamps are off, incorrectly triggers its "all-off" safety rule, and forces the Garage lamp off. Order matters because R3 relies on R1's output.
+
 
 ---
 
