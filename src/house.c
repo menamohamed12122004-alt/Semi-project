@@ -26,7 +26,7 @@
  *   - Nothing in this file prints anything. Printing is render.c's job.
  *
  * Smart Home Console · Day 03 midterm — G9
- * Student: Menam Mohamed
+ * Student: <YOUR NAME HERE>
  */
 #include "house.h"
 
@@ -84,6 +84,7 @@ void houseInit(void)
     SET_BIT(house[4].status, BIT_OCCUPIED);
 }
 
+
 /* ==========================================================================
  *  [ 1 / 6 ]   YOUR WORK HERE  —  houseInit()                        FR-03
  * --------------------------------------------------------------------------
@@ -113,7 +114,7 @@ void houseInit(void)
     static const uint16_t SEED_ADC[ROOM_COUNT] = { 51U, 64U, 45U, 58U, 49U, 96U };
     static const uint8_t  SEED_OCC[ROOM_COUNT] = { 1U, 0U, 0U, 0U, 1U, 0U };
 
-    for (uint8_t i = 0U; i < ROOM_COUNT; i++) {
+        for (uint8_t i = 0U; i < ROOM_COUNT; i++) {
         for (uint8_t j = 0U; j < NAME_LEN; j++) {
             house[i].name[j] = '\0';
         }
@@ -156,7 +157,7 @@ void houseInit(void)
  */
 uint16_t tempC(uint16_t adc)
 {
-    return (uint16_t)((((uint32_t)adc) * 500U) / 1024U);
+ return (uint16_t)((((uint32_t)adc) * 500U) / 1024U);
 }
 
 
@@ -197,7 +198,7 @@ uint16_t tempC(uint16_t adc)
  *     chain the last write wins — rule order is a design decision. Your
  *     README has to explain what happens if you move R3 first.
  */
-uint8_t applyRules(Room_t *r)
+    uint8_t applyRules(Room_t *r)
 {
     if (r == 0) {
         return 0U;
@@ -231,6 +232,9 @@ uint8_t applyRules(Room_t *r)
     return (before != r->status) ? 1U : 0U;
 }
 
+   
+
+
 
 /* ==========================================================================
  *  [ 4 / 6 ]   YOUR WORK HERE  —  rulesPass()                        FR-10
@@ -252,14 +256,13 @@ uint8_t applyRules(Room_t *r)
  * the missing `else`.
  */
 uint8_t rulesPass(void)
-{
-    uint8_t changed = 0U;
-
-    for (uint8_t i = 0U; i < ROOM_COUNT; i++) {
-        changed += applyRules(&house[i]);
+{    uint8_t changed_count = 0U;
+    for (uint8_t i = 0U; i < ROOM_COUNT; i++)
+    {
+        changed_count += applyRules(&house[i]);
     }
 
-    return changed;
+    return changed_count;
 }
 
 
@@ -279,8 +282,10 @@ uint8_t countRoomsWith(uint8_t bit)
 {
     uint8_t count = 0U;
 
-    for (uint8_t i = 0U; i < ROOM_COUNT; i++) {
-        if (READ_BIT(house[i].status, bit)) {
+    for (uint8_t i = 0U; i < ROOM_COUNT; i++)
+    {
+        if (READ_BIT(house[i].status, bit))
+        {
             count++;
         }
     }
@@ -314,7 +319,8 @@ uint8_t countRoomsWith(uint8_t bit)
  */
 uint32_t sumAdc(const Room_t *rooms, uint8_t n)
 {
-    if (n == 0U) {
+  if (n == 0U)
+    {
         return 0UL;
     }
     return (uint32_t)rooms[n - 1U].adc + sumAdc(rooms, (uint8_t)(n - 1U));
